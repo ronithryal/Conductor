@@ -22,11 +22,28 @@
 | 3 | Fix ActivityFeed overlap | Done |
 | 4 | Polish inspector panel transition | Pending |
 | 5 | Node status animation timing + trigger node fix | Pending |
-| 6 | Demo golden path dry run | Pending |
-| 7 | Retry UX polish | Pending |
+| 5b | Node glow on running state (visual differentiation) | Pending |
+| 5c | Live tool-call display inside running node card | Pending |
+| 6 | Demo golden path dry run — flag every "n8n moment" | Pending |
+| 7 | Retry UX — shake animation + prominent retry button | Pending |
+| 7b | Dashboard hero number (total runs 48px, front and center) | Pending |
 | 8 | Cmd+A → React Flow visual selection | Stretch |
 | 9 | Template picker loading skeleton | Stretch |
 | 10 | Final browser pass + eng log update | Pending |
+
+### Visual Differentiation Mandate
+
+The current build is structurally correct but reads like n8n or Make.com. The demo needs four
+specific moves to create clear visual separation before recording:
+
+| Move | What | Why it matters |
+|------|------|---------------|
+| Node glow | `box-shadow` radial glow on running nodes (purple, layered) | Canvas feels alive — machines are working. n8n has never done this. |
+| Live tool-call in node | Current tool + input displayed inside the card while running | You can read the agent's mind. No workflow tool shows this. |
+| Failure shake | Brief `@keyframes shake` + red glow on `run.node.failed` | Makes failure feel real, not just a color change. Sets up the retry beat. |
+| Dashboard hero number | Total runs (`1,247`) at 48px, dominant in the layout | Investors pattern-match big numbers as "this is in production." |
+
+These are not polish — they are the product thesis made visible. Every one ships before recording.
 
 ---
 
