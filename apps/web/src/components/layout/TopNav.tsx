@@ -13,12 +13,13 @@ const CURRENT_TEMPLATE_ID = 'email-triage'
 
 export function TopNav({ activeTab, onTabChange }: Props) {
   const { phase, startRun } = useRunStore()
-  const { nodes } = useCanvasStore()
+  const { nodes, resetNodeStatuses } = useCanvasStore()
   const isRunning = phase === 'running' || phase === 'queued'
   const hasNodes = nodes.length > 0
 
   const handleRun = async () => {
     if (isRunning || !hasNodes) return
+    resetNodeStatuses()
     await startRun(CURRENT_TEMPLATE_ID)
   }
 
