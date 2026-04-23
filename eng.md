@@ -126,6 +126,16 @@ Failure fires at t=12.5s on `research-1`. Retry script picks up from `research-1
 
 ---
 
+**Chunk 10 — Final browser pass**
+- Zero `console.*` calls in `apps/web/src/` — DevTools console will be clean.
+- Zero TypeScript errors on both packages.
+- Zero TODO/FIXME/debugger markers in source.
+- API-side `console.log` (startup) and `console.error` (boot failure) are intentional — do not appear in browser DevTools.
+- Visual checks at 1280×800 (glow, shake, tool-call display, hero number, inspector slide) require a manual browser run before recording.
+- Day 2 complete. All chunks 1–10 done.
+
+---
+
 ## Day 3 — (upcoming)
 
-Focus: final browser pass (1280×800, DevTools clean), record the video.
+Focus: manual visual QA at 1280×800, record the video.

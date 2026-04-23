@@ -9,10 +9,10 @@ How to pick up exactly where we left off. Read this at the start of every new se
 | Day | Focus | Status |
 |-----|-------|--------|
 | Day 1 | Shell + canvas, SSE backend, templates, dashboard, collaboration | Complete |
-| Day 2 | Bug fixes, animation polish, visual differentiation, demo dry run | In progress — chunks 1–7b done, chunk 10 remaining |
+| Day 2 | Bug fixes, animation polish, visual differentiation, demo dry run | Complete |
 | Day 3 | Demo script dry run, final polish, record video | Not started |
 
-**The next thing to do:** Chunk 10 — final browser pass at 1280×800, DevTools console clean, commit.
+**The next thing to do:** Day 3 — manual visual QA at 1280×800 (glow, shake, tool-call display, hero number, inspector slide), then record the video.
 
 ---
 
@@ -85,12 +85,6 @@ curl -N --max-time 15 http://localhost:3001/api/runs/$RUN_ID/stream
 
 ## What's left — Day 2 remaining chunks
 
-### Remaining tasks
-
-| # | Chunk | Notes |
-|---|-------|-------|
-| 10 | Final browser pass + log update | DevTools console clean, test at 1280×800, commit. |
-
 ### Completed Day 2 chunks
 
 | # | Chunk | Done |
@@ -105,6 +99,7 @@ curl -N --max-time 15 http://localhost:3001/api/runs/$RUN_ID/stream
 | 6 | Demo golden path dry run | ✓ |
 | 7 | Failure shake + red glow + retry label | ✓ |
 | 7b | Dashboard hero number | ✓ |
+| 10 | Final browser pass | ✓ |
 
 ---
 
