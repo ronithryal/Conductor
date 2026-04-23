@@ -8,9 +8,9 @@ Goal: everything works in the browser, the demo golden path is flawless, and the
 
 | # | Chunk | Priority | Est. | Status |
 |---|-------|----------|------|--------|
-| 1 | Boot & smoke test | Critical | 30m | [ ] |
-| 2 | Fix node status reset (Clear button) | Critical | 30m | [ ] |
-| 3 | Fix ActivityFeed overlap | High | 30m | [ ] |
+| 1 | Boot & smoke test | Critical | 30m | [x] |
+| 2 | Fix node status reset (Clear button) | Critical | 30m | [x] |
+| 3 | Fix ActivityFeed overlap | High | 30m | [x] |
 | 4 | Polish inspector panel transition | High | 45m | [ ] |
 | 5 | Node status animation timing | High | 45m | [ ] |
 | 6 | Demo golden path dry run | Critical | 60m | [ ] |

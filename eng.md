@@ -71,9 +71,25 @@ Failure fires at t=12.5s on `research-1`. Retry script picks up from `research-1
 
 ---
 
-## Day 2 — (upcoming)
+## Day 2 — 2026-04-23
 
-Focus: verify run animation end-to-end in browser, fix any visual issues from Day 1, polish node status transitions.
+### Completed
+
+**Chunk 1 — Smoke test**
+- API (3001) and web (5174) both start clean
+- `/health`, `/api/templates` respond correctly
+- SSE stream: `run.node.failed` fires on `research-1` at 12.5s as scripted
+- Retry stream reaches `run.completed` at ~9.8s
+- TypeScript: zero errors on both packages
+
+**Chunk 2 — Node status reset**
+- Clear button wiring confirmed correct: `resetRun()` + `resetNodeStatuses()` in one handler
+- Added defensive `resetNodeStatuses()` call to `TopNav.handleRun` — nodes now reset to idle at the start of every run, not just after Clear
+- Bug found: trigger-1 never animates (no status styling in TriggerNode, `run.queued` event unhandled) — deferred to Chunk 5
+
+**Chunk 3 — ActivityFeed overlap**
+- Root cause: ActivityFeed was `position: absolute` in the AppShell layer, outside the canvas column. `bottom: 220` put it at canvas bottom-left, overlapping nodes on viewports shorter than ~750px
+- Fix: moved ActivityFeed inside the canvas column div (now respects inspector margin automatically), repositioned to `top: 8, left: 8` as a floating panel with `backdrop-filter: blur` and rounded border. Clear of nodes at all viewport sizes.
 
 ---
 

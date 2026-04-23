@@ -21,22 +21,24 @@ export function AppShell() {
         {activeTab === 'canvas' ? (
           <>
             {/* Canvas + run feed column */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', marginRight: panelOpen ? 300 : 0, transition: 'margin-right 0.2s ease' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', marginRight: panelOpen ? 300 : 0, transition: 'margin-right 0.2s ease', position: 'relative' }}>
               <ConductorCanvas />
               <RunFeed />
-            </div>
 
-            {/* Activity feed (left of inspector) */}
-            <div style={{
-              position: 'absolute',
-              left: 0,
-              bottom: 220,
-              width: 220,
-              background: '#0F0F0F',
-              borderRight: '1px solid #1F1F1F',
-              borderTop: '1px solid #1F1F1F',
-            }}>
-              <ActivityFeed />
+              {/* Activity feed — top-left of canvas column, clear of nodes */}
+              <div style={{
+                position: 'absolute',
+                top: 8,
+                left: 8,
+                width: 210,
+                background: 'rgba(15,15,15,0.92)',
+                border: '1px solid #1F1F1F',
+                borderRadius: 8,
+                backdropFilter: 'blur(8px)',
+                zIndex: 10,
+              }}>
+                <ActivityFeed />
+              </div>
             </div>
 
             {/* Inspector */}
