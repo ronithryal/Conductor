@@ -43,7 +43,7 @@ export function startRunEngine(
       },
     }
 
-    reply.raw.write(`event: ${step.type}\ndata: ${JSON.stringify(event)}\n\n`)
+    reply.raw.write(`data: ${JSON.stringify(event)}\n\n`)
   }
 
   for (const step of script) {
