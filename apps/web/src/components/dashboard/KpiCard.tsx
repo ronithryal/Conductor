@@ -3,9 +3,10 @@ interface Props {
   value: string
   sub?: string
   color?: string
+  hero?: boolean
 }
 
-export function KpiCard({ label, value, sub, color = '#F2F2F2' }: Props) {
+export function KpiCard({ label, value, sub, color = '#F2F2F2', hero = false }: Props) {
   return (
     <div style={{
       background: '#141414',
@@ -18,7 +19,7 @@ export function KpiCard({ label, value, sub, color = '#F2F2F2' }: Props) {
       <div style={{ fontSize: 10, color: '#808080', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>
         {label}
       </div>
-      <div style={{ fontSize: 22, fontWeight: 700, color, marginBottom: 4 }}>{value}</div>
+      <div style={{ fontSize: hero ? 48 : 22, fontWeight: 700, color, marginBottom: 4, lineHeight: 1 }}>{value}</div>
       {sub && <div style={{ fontSize: 10, color: '#404040' }}>{sub}</div>}
     </div>
   )

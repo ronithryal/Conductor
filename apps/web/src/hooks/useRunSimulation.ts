@@ -5,7 +5,7 @@ import type { RunEvent } from '../types/runs'
 
 export function useRunSimulation() {
   const { runId, phase, addEvent, setPhase, setActiveNode, setErrorNode } = useRunStore()
-  const { updateNodeStatus } = useCanvasStore()
+  const { updateNodeStatus, updateNodeData } = useCanvasStore()
   const esRef = useRef<EventSource | null>(null)
 
   useEffect(() => {
@@ -34,15 +34,25 @@ export function useRunSimulation() {
         addEvent(runEvent)
 
         switch (type) {
+          case 'run.queued':
+            updateNodeStatus(payload.nodeId, 'success')
+            break
           case 'run.node.started':
             setActiveNode(payload.nodeId)
             updateNodeStatus(payload.nodeId, 'running')
             break
+          case 'run.node.tool-call':
+            updateNodeData(payload.nodeId, {
+              activeToolCall: { toolName: payload.toolName, toolInput: payload.toolInput },
+            })
+            break
           case 'run.node.completed':
             updateNodeStatus(payload.nodeId, 'success')
+            updateNodeData(payload.nodeId, { activeToolCall: null })
             break
           case 'run.node.failed':
             updateNodeStatus(payload.nodeId, 'error')
+            updateNodeData(payload.nodeId, { activeToolCall: null })
             setErrorNode(payload.nodeId)
             setPhase('error')
             es.close()

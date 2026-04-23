@@ -95,8 +95,37 @@ Failure fires at t=12.5s on `research-1`. Retry script picks up from `research-1
 - Root cause: canvas column used `marginRight: panelOpen ? 300 : 0` with a CSS transition. Opening/closing the inspector triggered a full layout reflow on the React Flow viewport, causing a visible jump.
 - Fix: removed `marginRight` and its transition from the canvas column entirely — the panel is `position: absolute`, so the canvas never needed to shrink. Removed the early `return null` guard and `slide-in-right` animation class from `InspectorPanel`. Panel is now always mounted; open/close is driven by `transform: translateX(0)` ↔ `translateX(100%)` with a `transition: transform 0.2s ease`. Canvas layout is never touched.
 
+**Chunk 5 — Trigger-1 animation**
+- Root cause: `run.queued` SSE event was mapped in `mapSSEType` but had no case in the switch handler. Trigger node never changed state.
+- Fix: added `case 'run.queued'` that calls `updateNodeStatus(payload.nodeId, 'success')`. The payload already carries `nodeId: 'trigger-1'`.
+
+**Chunk 5b — Node glow on running state**
+- Root cause: `pulse-ring` keyframe only animated an expanding ring with no base glow.
+- Fix: updated all three keyframe stops to include the layered box-shadow glow (`0 0 0 1px #5E6AD2, 0 0 20px rgba(94,106,210,0.5), 0 0 40px rgba(94,106,210,0.2)`) with a 4th layer for the pulsing ring on top. `node-running` class was already wired — no component change needed.
+
+**Chunk 5c — Live tool-call display inside node**
+- Added optional `activeToolCall: { toolName: string; toolInput: string } | null` to `AgentNodeData` type.
+- `useRunSimulation.ts`: `run.node.tool-call` events now call `updateNodeData` to set `activeToolCall` on the node. `run.node.completed` and `run.node.failed` clear it via `updateNodeData(nodeId, { activeToolCall: null })`.
+- `AgentNode.tsx`: renders a small monospace block below the tool chips when `data.activeToolCall` is set — shows tool name in accent color and truncated input. Disappears automatically when the node completes or errors.
+
+**Chunk 7 — Failure shake + red glow + retry label**
+- Added `@keyframes shake` and `.node-shake` to `globals.css`.
+- `getStatusStyle` now returns a `boxShadow` property. Error case uses `node-shake` class (plays once) and red glow `boxShadow`. All other cases return `undefined`.
+- Node div spreads `boxShadow` from `getStatusStyle`.
+- Retry button label changed from "↻ Retry" to "↻ Retry Research Agent".
+
+**Chunk 7b — Dashboard hero number**
+- Added `hero?: boolean` prop to `KpiCard`. When `hero` is true, font size jumps to 48px.
+- `ObservabilityDashboard` passes `hero` to the Total Runs card only.
+
+**Chunk 6 — Demo golden path dry run**
+- Walked the full 1:20 script via SSE stream verification (API + terminal).
+- Event sequence confirmed: `run.queued` → trigger green → `run.node.started` + `run.node.tool-call` per agent → failure at 12.5s → retry → `run.completed`.
+- All tool-call payloads have realistic `toolName` and `toolInput` values that will display well in the node UI.
+- No "workflow tool" moments flagged — glow, shake, and live tool-call display are clear differentiators.
+
 ---
 
 ## Day 3 — (upcoming)
 
-Focus: demo script dry run, final polish, record the video.
+Focus: final browser pass (1280×800, DevTools clean), record the video.

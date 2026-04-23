@@ -26,11 +26,11 @@ const MODEL_COLORS: Record<string, string> = {
 
 function getStatusStyle(status: string) {
   switch (status) {
-    case 'running': return { border: '1.5px solid #5E6AD2', className: 'node-running' }
-    case 'success': return { border: '1.5px solid #22C55E', className: '' }
-    case 'error': return { border: '1.5px solid #EF4444', className: '' }
-    case 'queued': return { border: '1.5px solid #F59E0B', className: '' }
-    default: return { border: '1.5px solid #2A2A2A', className: '' }
+    case 'running': return { border: '1.5px solid #5E6AD2', className: 'node-running',  boxShadow: undefined }
+    case 'success': return { border: '1.5px solid #22C55E', className: '',              boxShadow: undefined }
+    case 'error':   return { border: '1.5px solid #EF4444', className: 'node-shake',    boxShadow: '0 0 0 1px #EF4444, 0 0 20px rgba(239,68,68,0.3)' }
+    case 'queued':  return { border: '1.5px solid #F59E0B', className: '',              boxShadow: undefined }
+    default:        return { border: '1.5px solid #2A2A2A', className: '',              boxShadow: undefined }
   }
 }
 
@@ -59,7 +59,7 @@ function StatusDot({ status }: { status: string }) {
 function AgentNode({ id, data, selected }: NodeProps<AgentNodeData>) {
   const { openPanel } = useInspectorStore()
   const { selectedNodeId } = useCanvasStore()
-  const { border, className } = getStatusStyle(data.status)
+  const { border, className, boxShadow } = getStatusStyle(data.status)
   const hasComment = COMMENT_PIN.nodeId === id
 
   return (
@@ -74,6 +74,7 @@ function AgentNode({ id, data, selected }: NodeProps<AgentNodeData>) {
         cursor: 'pointer',
         position: 'relative',
         userSelect: 'none',
+        boxShadow,
       }}
     >
       <Handle
@@ -130,6 +131,23 @@ function AgentNode({ id, data, selected }: NodeProps<AgentNodeData>) {
             <span style={{ fontSize: 10, color: '#404040' }}>+{data.tools.length - 3}</span>
           )}
         </div>
+        {data.activeToolCall && (
+          <div style={{
+            marginTop: 6,
+            padding: '4px 6px',
+            background: '#0F0F0F',
+            border: '1px solid #1F1F1F',
+            borderRadius: 4,
+            fontFamily: 'monospace',
+          }}>
+            <div style={{ fontSize: 9, color: '#5E6AD2', marginBottom: 2 }}>
+              ▶ {data.activeToolCall.toolName}
+            </div>
+            <div style={{ fontSize: 9, color: '#404040', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {data.activeToolCall.toolInput}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Cost */}

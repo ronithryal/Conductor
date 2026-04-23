@@ -112,9 +112,9 @@ body {
 
 /* ── Node status animations ── */
 @keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(94, 106, 210, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(94, 106, 210, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(94, 106, 210, 0); }
+  0%   { box-shadow: 0 0 0 1px #5E6AD2, 0 0 20px rgba(94,106,210,0.5), 0 0 40px rgba(94,106,210,0.2), 0 0 0 0   rgba(94,106,210,0.6); }
+  70%  { box-shadow: 0 0 0 1px #5E6AD2, 0 0 20px rgba(94,106,210,0.5), 0 0 40px rgba(94,106,210,0.2), 0 0 0 10px rgba(94,106,210,0); }
+  100% { box-shadow: 0 0 0 1px #5E6AD2, 0 0 20px rgba(94,106,210,0.5), 0 0 40px rgba(94,106,210,0.2), 0 0 0 0   rgba(94,106,210,0); }
 }
 
 @keyframes pulse-ring-error {
@@ -160,6 +160,18 @@ body {
 
 .node-appear {
   animation: node-appear 0.25s ease-out forwards;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-6px); }
+  40%     { transform: translateX(6px); }
+  60%     { transform: translateX(-4px); }
+  80%     { transform: translateX(4px); }
+}
+
+.node-shake {
+  animation: shake 0.4s ease-out 1;
 }
 
 /* ── Dot grid background ── */

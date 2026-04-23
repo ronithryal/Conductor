@@ -114,7 +114,7 @@ export function RunFeed() {
                       flexShrink: 0,
                     }}
                   >
-                    ↻ Retry
+                    ↻ Retry Research Agent
                   </button>
                 </div>
               )}

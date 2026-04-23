@@ -20,7 +20,7 @@ export function ObservabilityDashboard() {
 
       {/* KPI cards */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
-        <KpiCard label="Total Runs" value={formatNumber(m.totalRuns)} sub="+12% vs last week" />
+        <KpiCard label="Total Runs" value={formatNumber(m.totalRuns)} sub="+12% vs last week" hero />
         <KpiCard label="Avg Latency" value={`${(m.avgLatency / 1000).toFixed(1)}s`} sub="p95: 8.2s" />
         <KpiCard label="Error Rate" value={`${m.errorRate}%`} sub="3.4% (42 errors)" color="#EF4444" />
         <KpiCard label="Tokens Used" value={formatNumber(m.tokenUsage)} sub="across all agents" />

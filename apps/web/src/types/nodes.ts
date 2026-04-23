@@ -19,6 +19,7 @@ export interface AgentNodeData {
   estimatedCost: string
   lastRunAt?: string
   retryCount: number
+  activeToolCall?: { toolName: string; toolInput: string } | null
 }
 
 export interface ToolNodeData {
