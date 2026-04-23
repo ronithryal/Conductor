@@ -21,7 +21,7 @@ export function AppShell() {
         {activeTab === 'canvas' ? (
           <>
             {/* Canvas + run feed column */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', marginRight: panelOpen ? 300 : 0, transition: 'margin-right 0.2s ease', position: 'relative' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative' }}>
               <ConductorCanvas />
               <RunFeed />
 

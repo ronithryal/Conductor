@@ -64,7 +64,7 @@ Failure fires at t=12.5s on `research-1`. Retry script picks up from `research-1
 ### Known issues / Day 2 focus
 
 - [ ] Node status does not visually reset when "Clear" is clicked after a run (resetNodeStatuses is wired but needs verification in browser)
-- [ ] Inspector panel margin-right transition on canvas could be smoother
+- [x] Inspector panel margin-right transition on canvas — fixed (Chunk 4, Day 2)
 - [ ] `useCanvasKeyboard` — Cmd+A selects nodes in the store but React Flow's visual selection is a separate concept; may need wiring
 - [ ] No loading skeleton for template picker (minor)
 - [ ] ActivityFeed is positioned absolutely over the canvas bottom-left — needs to be moved to a better spot (currently overlaps canvas nodes if zoomed out)
@@ -90,6 +90,10 @@ Failure fires at t=12.5s on `research-1`. Retry script picks up from `research-1
 **Chunk 3 — ActivityFeed overlap**
 - Root cause: ActivityFeed was `position: absolute` in the AppShell layer, outside the canvas column. `bottom: 220` put it at canvas bottom-left, overlapping nodes on viewports shorter than ~750px
 - Fix: moved ActivityFeed inside the canvas column div (now respects inspector margin automatically), repositioned to `top: 8, left: 8` as a floating panel with `backdrop-filter: blur` and rounded border. Clear of nodes at all viewport sizes.
+
+**Chunk 4 — Inspector panel transition**
+- Root cause: canvas column used `marginRight: panelOpen ? 300 : 0` with a CSS transition. Opening/closing the inspector triggered a full layout reflow on the React Flow viewport, causing a visible jump.
+- Fix: removed `marginRight` and its transition from the canvas column entirely — the panel is `position: absolute`, so the canvas never needed to shrink. Removed the early `return null` guard and `slide-in-right` animation class from `InspectorPanel`. Panel is now always mounted; open/close is driven by `transform: translateX(0)` ↔ `translateX(100%)` with a `transition: transform 0.2s ease`. Canvas layout is never touched.
 
 ---
 

@@ -9,11 +9,8 @@ export function InspectorPanel() {
 
   const selectedNode = selectedNodeId ? nodes.find((n) => n.id === selectedNodeId) : null
 
-  if (!panelOpen) return null
-
   return (
     <div
-      className="slide-in-right"
       style={{
         position: 'absolute',
         top: 0,
@@ -25,6 +22,8 @@ export function InspectorPanel() {
         display: 'flex',
         flexDirection: 'column',
         zIndex: 20,
+        transform: panelOpen ? 'translateX(0)' : 'translateX(100%)',
+        transition: 'transform 0.2s ease',
       }}
     >
       {/* Header */}
