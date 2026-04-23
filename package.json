@@ -1,0 +1,12 @@
+{
+  "name": "conductor",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter web dev\" \"pnpm --filter api dev\"",
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
